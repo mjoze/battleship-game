@@ -1,0 +1,26 @@
+@import "variables";
+
+* {
+  box-sizing: border-box;
+
+}
+
+table {
+  tr {
+    display: flex;
+
+    td {
+
+      width: 50px;
+      display: block;
+      height: 50px;
+      background-color: red;
+      border: 1px solid black;
+      margin: 2px 2px;
+    }
+
+    td:hover {
+      cursor: pointer;
+    }
+  }
+}
