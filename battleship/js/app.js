@@ -31,33 +31,17 @@ class Ships {
     }
   }
   generateShip(Boards) {
-    let number = Math.floor(Math.random() * 100);
     const direction = Math.round(Math.random());
+    let number = Math.floor(Math.random() * 100);
     let shipCol = 1;
     let shipRow = 10;
     if (!Boards.shipOnBoards.includes(number)) {
       console.log("available");
       for (let i = 0; i < this.length; i++) {
         if (direction === 1) {
-          if (number === (10 || 20 || 30 || 40 || 50 || 60 || 70 || 80 || 90)) {
-            shipCol += 10;
-          } else if (
-            number + 3 ===
-            (10 || 20 || 30 || 40 || 50 || 60 || 70 || 80 || 90)
-          ) {
-          } else {
-            shipCol += 1;
-          }
-          this.position.push(number + shipCol);
+          console.log(1);
         } else {
-          if (number > 80) {
-            number -= 20;
-          } else if (number > 70) {
-            number -= 10;
-          }
-          this.position.push(number + shipRow);
-
-          shipRow += 10;
+          console.log(0);
         }
       }
     } else {
@@ -89,11 +73,9 @@ class Controller {
 }
 const boards = new Boards(".ships");
 const s = new Ships(3, boards.boards, [], [], "computer");
-
+console.log(s.position);
 const s2 = new Ships(4, boards.boards, [], [], "player");
-
+console.log(s2.position);
 s.generateShip(boards);
-
+s2.generateShip(boards);
 const game = new Controller();
-
-game.fire(boards, 33);
