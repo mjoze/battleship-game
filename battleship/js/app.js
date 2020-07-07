@@ -4,19 +4,29 @@ class Boards {
   constructor(boards) {
     this.boards = [...document.querySelectorAll(boards)];
     this.shipOnBoards = [];
+    this.playerShips = [];
+    this.compShips = [];
   }
 }
 
 class Ships {
-  constructor(length, boards, position, hits) {
+  constructor(length, boards, position, hits, player) {
     this.length = length;
     this.boards = boards;
     this.position = position;
     this.hits = hits;
+    this.player = player;
   }
+
   displayShip(Boards) {
+    let color = "blue";
     for (const el of this.position) {
-      this.boards[el - 1].style.backgroundColor = "pink";
+      if (this.player === "player") {
+        color = "red";
+      } else {
+        color = "pink";
+      }
+      this.boards[el - 1].style.backgroundColor = color;
       Boards.shipOnBoards.push(el);
     }
   }
@@ -53,11 +63,37 @@ class Ships {
     } else {
       console.log("error");
     }
+    if (this.player === "player") {
+      Boards.playerShips.push([this.position]);
+    } else {
+      Boards.compShips.push([this.position]);
+    }
+  }
+}
+
+class Controller {
+  // constructor() {}
+  fire(Boards, target) {
+    for (const el of Boards.compShips) {
+      for (const i of el) {
+        for (const index of i) {
+          if (index === target) {
+            console.log("hit");
+          } else {
+            console.log("miss");
+          }
+        }
+      }
+    }
   }
 }
 const boards = new Boards(".ships");
-const s1 = new Ships(5, boards.boards, [53, 43], [0, 0]);
-s1.generateShip(boards);
-s1.displayShip(boards);
-console.log(s1);
-console.log(boards);
+const s = new Ships(3, boards.boards, [], [], "computer");
+
+const s2 = new Ships(4, boards.boards, [], [], "player");
+
+s.generateShip(boards);
+
+const game = new Controller();
+
+game.fire(boards, 33);
