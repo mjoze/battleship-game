@@ -1,32 +1,30 @@
 import "../sass/style.scss";
 
 class Boards {
-  constructor(boards) {
-    this.boards = [...document.querySelectorAll(boards)];
+  constructor(playerShips, compShips) {
     this.shipOnBoards = [];
-    this.playerShips = [];
-    this.compShips = [];
+    this.playerShips = playerShips;
+    this.compShips = compShips;
   }
 }
 
 class Ships {
-  constructor(length, boards, position, hits, player) {
+  constructor(length, position, hits, player) {
     this.length = length;
-    this.boards = boards;
     this.position = position;
     this.hits = hits;
     this.player = player;
   }
 
-  displayShip(Boards) {
+  displayShip(boards, Boards) {
     let color = "blue";
+    if (this.player === "player") {
+      color = "red";
+    } else {
+      color = "pink";
+    }
     for (const el of this.position) {
-      if (this.player === "player") {
-        color = "red";
-      } else {
-        color = "pink";
-      }
-      this.boards[el - 1].style.backgroundColor = color;
+      boards[el - 1].style.backgroundColor = color;
       Boards.shipOnBoards.push(el);
     }
   }
@@ -52,47 +50,47 @@ class Ships {
         console.log("error");
       }
     }
-    if (this.player === "player") {
-      Boards.playerShips.push([this.position]);
-    } else {
-      Boards.compShips.push([this.position]);
-    }
+    // if (this.player === "player") {
+    //   Boards.playerShips.push([this.position]);
+    // } else {
+    //   Boards.compShips.push([this.position]);
+    // }
   }
 }
 
 class Controller {
   firePlayer(Boards, target) {
-    for (const el of Boards.compShips) {
-      for (const i of el) {
-        for (const index of i) {
-          if (index === target) {
-            console.log("hit");
-          } else {
-            console.log("miss");
-          }
-        }
-      }
-    }
+    // for (const el of Boards.compShips) {
+    //   for (const i of el) {
+    //     for (const index of i) {
+    //       if (index === target) {
+    //         console.log("hit");
+    //       } else {
+    //         console.log("miss");
+    //       }
+    //     }
+    //   }
+    // }
   }
-  fireComp(Boards) {
+  fireComp(Boards, boards) {
     const target = Math.floor(Math.random() * 100);
-    for (const el of Boards.playerShips) {
-      for (const i of el) {
-        for (const index of i) {
-          if (index === target) {
-            console.log("hit");
-            Boards.boards[target - 1].style.backgroundColor = "black";
-          } else {
-            console.log("miss");
-          }
-        }
-      }
-    }
+    // for (const el of Boards.playerShips) {
+    //   for (const i of el) {
+    //     for (const index of i) {
+    //       if (index === target) {
+    //         console.log("hit");
+    //         boards[target - 1].style.backgroundColor = "black";
+    //       } else {
+    //         console.log("miss");
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
 
 const battle = (Boards, Controller) => {
-  console.log("gramy");
+  console.log("let's play");
   let game = 5;
 
   while (game > 0) {
@@ -108,20 +106,20 @@ const battle = (Boards, Controller) => {
     }
     Controller.firePlayer(Boards, target);
     console.log(target);
-    Controller.fireComp(Boards);
+    Controller.fireComp(Boards, boards);
     game -= 1;
   }
 };
+const boards = [...document.querySelectorAll(".ships")];
+const s = new Ships(3, [], [], "computer");
+const s2 = new Ships(4, [], [], "player");
 
-const boards = new Boards(".ships");
-const s = new Ships(3, boards.boards, [], [], "computer");
-const s2 = new Ships(4, boards.boards, [], [], "player");
-s.generateShip(boards);
-s.displayShip(boards);
-s2.generateShip(boards);
-s2.displayShip(boards);
+const board = new Boards([s], [s2]);
+
+s.generateShip(board);
+s.displayShip(boards, board);
+s2.generateShip(board);
+s2.displayShip(boards, board);
 const game = new Controller();
-game.fireComp(boards);
-console.log(boards);
 
-battle(boards, game);
+battle(board, game);
