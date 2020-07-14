@@ -1,6 +1,6 @@
 import "../sass/style.scss";
 
-const columns = document.querySelectorAll('.columns')
+const exclusionBoard = []
 
 
 class Game {
@@ -17,32 +17,41 @@ class Game {
 
 class Ship {
   constructor(length) {
-    this.length = length
     this.location = []
-    this.row = 0
-    this.hits = 0
+    this.length = length
   }
   generateShip() {
-    const ship = []
+    const shipDrawing = []
+    const locationShip = []
     const direction = Math.round(Math.random());
     let number = Math.floor(Math.random() * 10);
-    if (this.length === 4 && number >= 7) {
-      number = 7
+    if (!exclusionBoard.includes(number)) {
+      if (this.length === 4 && number >= 7) {
+        number = 7
+      }
+      for (let i = 0; i < this.length; i++) {
+        shipDrawing.push(number)
+        number++
+      }
+      if (direction === 1) {
+        const kierunek = Math.floor(Math.random() * 10);
+        for (const el of shipDrawing) {
+          const shipNumber = kierunek * 10 + el
+          locationShip.push(shipNumber)
+          exclusionBoard.push(shipNumber)
+        }
+      } else {
+        for (let i = 0; i < this.length; i++) {
+          const shipNumber = number += 10
+          locationShip.push(shipNumber)
+          exclusionBoard.push(shipNumber)
+        }
+      }
     }
-    for (let i = 0; i < this.length; i++) {
-      ship.push(number)
-      number++
-    }
-    if (direction === 1) {
-      this.row = Math.floor(Math.random() * 10);
-      this.location.push(ship)
-      console.log("columns:" + this.location, "row:" + this.row);
-    } else {
-      this.row = ship
-      this.location = Math.floor(Math.random() * 10);
-      console.log("column:" + this.row, "rows:" + this.location);
-    }
+    console.log(locationShip);
   }
+
+  displayShip(playerShips) {}
   getHurt(shoot) {
     for (const el of this.location) {
       if (el === shoot) {
@@ -60,5 +69,13 @@ class Ship {
   }
 }
 
+
+
+const columns = document.querySelectorAll('.columns')
+
+
 const ship1 = new Ship(4)
+const ship2 = new Ship(4)
+
 ship1.generateShip()
+ship2.generateShip()
