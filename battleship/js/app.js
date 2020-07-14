@@ -58,7 +58,11 @@ class Ship {
     console.log(this.location);
   }
 
-  displayShip(columns) {}
+  displayShip(boards) {
+    for (const el in this.location) {
+      boards[this.location[el]].style.backgroundColor = 'red';
+    }
+  }
   getHurt(shoot) {
     for (const el of this.location) {
       if (el === shoot) {
@@ -78,11 +82,4 @@ class Ship {
 
 
 
-const columns = document.querySelectorAll('.columns')
-
-
-const ship1 = new Ship(4)
-const ship2 = new Ship(4)
-
-ship1.generateShip()
-ship2.generateShip()
+const boards = [...document.querySelectorAll('p')]
