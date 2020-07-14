@@ -29,14 +29,20 @@ class Ship {
       if (this.length === 4 && number >= 7) {
         number = 7
       }
+      if (this.length === 3 && number >= 8) {
+        number = 8
+      }
+      if (this.length === 2 && number >= 9) {
+        number = 9
+      }
       for (let i = 0; i < this.length; i++) {
         shipDrawing.push(number)
         number++
       }
       if (direction === 1) {
-        const kierunek = Math.floor(Math.random() * 10);
+        const numberDirect = Math.floor(Math.random() * 10);
         for (const el of shipDrawing) {
-          const shipNumber = kierunek * 10 + el
+          const shipNumber = numberDirect * 10 + el
           locationShip.push(shipNumber)
           exclusionBoard.push(shipNumber)
         }
@@ -48,7 +54,7 @@ class Ship {
         }
       }
     }
-    console.log(locationShip);
+    this.location = locationShip
   }
 
   displayShip(playerShips) {}
