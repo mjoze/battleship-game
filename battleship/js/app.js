@@ -19,20 +19,28 @@ class Ship {
   constructor(length) {
     this.length = length
     this.location = []
+    this.row = 0
     this.hits = 0
   }
   generateShip() {
+    const ship = []
     const direction = Math.round(Math.random());
     let number = Math.floor(Math.random() * 10);
+    if (this.length === 4 && number >= 7) {
+      number = 7
+    }
     for (let i = 0; i < this.length; i++) {
-      if (direction === 1) {
-        if (this.length === 4) {}
-        if (this.length === 3) {}
-        if (this.length === 2) {}
-        console.log("rows", number++);
-      } else {
-        console.log("columns", number);
-      }
+      ship.push(number)
+      number++
+    }
+    if (direction === 1) {
+      this.row = Math.floor(Math.random() * 10);
+      this.location.push(ship)
+      console.log("columns:" + this.location, "row:" + this.row);
+    } else {
+      this.row = ship
+      this.location = Math.floor(Math.random() * 10);
+      console.log("column:" + this.row, "rows:" + this.location);
     }
   }
   getHurt(shoot) {
