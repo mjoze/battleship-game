@@ -26,14 +26,14 @@ class Ship {
     const direction = Math.round(Math.random());
     let number = Math.floor(Math.random() * 10);
     if (!exclusionBoard.includes(number)) {
-      if (this.length === 4 && number >= 7) {
+      if (this.length === 4 && number >= 6) {
+        number = 6
+      }
+      if (this.length === 3 && number >= 7) {
         number = 7
       }
-      if (this.length === 3 && number >= 8) {
+      if (this.length === 2 && number >= 8) {
         number = 8
-      }
-      if (this.length === 2 && number >= 9) {
-        number = 9
       }
       for (let i = 0; i < this.length; i++) {
         shipDrawing.push(number)
@@ -55,9 +55,10 @@ class Ship {
       }
     }
     this.location = locationShip
+    console.log(this.location);
   }
 
-  displayShip(playerShips) {}
+  displayShip(columns) {}
   getHurt(shoot) {
     for (const el of this.location) {
       if (el === shoot) {
