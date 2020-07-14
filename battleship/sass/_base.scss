@@ -1,14 +1,9 @@
 @import "variables";
 
-.game {
+.columns {
   display: flex;
 
 
-  .numbers div {
-    border: 2px solid white;
-    width: 30px;
-    height: 30px;
-  }
 
   .ships {
     border: 2px solid blue;

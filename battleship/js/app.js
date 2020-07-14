@@ -1,38 +1,56 @@
 import "../sass/style.scss";
 
+const columns = document.querySelectorAll('.columns')
 
-// game
-// ships in the game
-// player's ships
-// computer ships
+
 class Game {
   constructor(playerShips, computerShips) {
-    this.ships = []
     this.playerShips = playerShips
     this.computerShips = computerShips
+    this.result = {}
   }
-  addShips() {
-    this.ships = [this.playerShips, this.computerShips]
+  fire(shoot, Ship) {
+    Ship.getHurt(shoot)
   }
 }
-// ship
-// location
-// hits
+
+
 class Ship {
   constructor(length) {
     this.length = length
     this.location = []
     this.hits = 0
   }
-}
-// controller
-// result
-// fire
-class controller {
-  constructor() {
-    this.result = {}
-
+  generateShip() {
+    const direction = Math.round(Math.random());
+    let number = Math.floor(Math.random() * 10);
+    for (let i = 0; i < this.length; i++) {
+      if (direction === 1) {
+        if (this.length === 4) {}
+        if (this.length === 3) {}
+        if (this.length === 2) {}
+        console.log("rows", number++);
+      } else {
+        console.log("columns", number);
+      }
+    }
   }
-  fire() {}
-
+  getHurt(shoot) {
+    for (const el of this.location) {
+      if (el === shoot) {
+        this.hits += 1
+        console.log("hit");
+      } else {
+        console.log("miss");
+      }
+    }
+  }
+  isSunk() {
+    if (this.hits === this.length) {
+      console.log("ship is sunk");
+    }
+  }
 }
+
+const ship1 = new Ship(4)
+ship1.generateShip()
