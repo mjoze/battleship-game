@@ -21,41 +21,18 @@ class Ship {
     this.length = length
   }
   generateShip() {
-    const shipDrawing = []
-    const locationShip = []
     const direction = Math.round(Math.random());
     let number = Math.floor(Math.random() * 10);
-    if (!exclusionBoard.includes(number)) {
-      if (this.length === 4 && number >= 6) {
-        number = 6
-      }
-      if (this.length === 3 && number >= 7) {
-        number = 7
-      }
-      if (this.length === 2 && number >= 8) {
-        number = 8
-      }
-      for (let i = 0; i < this.length; i++) {
-        shipDrawing.push(number)
-        number++
-      }
-      if (direction === 1) {
-        const numberDirect = Math.floor(Math.random() * 10);
-        for (const el of shipDrawing) {
-          const shipNumber = numberDirect * 10 + el
-          locationShip.push(shipNumber)
-          exclusionBoard.push(shipNumber)
-        }
-      } else {
-        for (let i = 0; i < this.length; i++) {
-          const shipNumber = number += 10
-          locationShip.push(shipNumber)
-          exclusionBoard.push(shipNumber)
-        }
-      }
+    if (this.length === 4 && number >= 6) {
+      number = 6
     }
-    this.location = locationShip
-    console.log(this.location);
+    if (this.length === 3 && number >= 7) {
+      number = 7
+    }
+    if (this.length === 2 && number >= 8) {
+      number = 8
+    }
+    if (direction === 1) {}
   }
 
   displayShip(boards) {
@@ -83,3 +60,12 @@ class Ship {
 
 
 const boards = [...document.querySelectorAll('p')]
+const ship1 = new Ship(4)
+const ship2 = new Ship(3)
+const ship3 = new Ship(2)
+ship1.generateShip()
+ship1.displayShip(boards)
+ship2.generateShip()
+ship2.displayShip(boards)
+ship3.generateShip()
+ship3.displayShip(boards)
