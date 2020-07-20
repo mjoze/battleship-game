@@ -20,7 +20,7 @@ class Ship {
     this.location = []
     this.length = length
   }
-  generateNumber() {
+  generateNumber(exclusionBoard) {
     const direction = Math.round(Math.random());
     let number = Math.floor(Math.random() * 10);
     if (this.length === 4 && number >= 6) {
@@ -35,27 +35,26 @@ class Ship {
     const drawShip = Math.floor(Math.random() * 10)
     const testShip = []
     for (let i = 0; i < this.length; i++) {
+      // change the repetition
       if (direction === 1) {
-        const a = ((10 * drawShip) + number++)
-        if (exclusionBoard.includes(a)) {
-          return console.log('collision');
+        const numberRandom = ((10 * drawShip) + number++)
+        if (!exclusionBoard.includes(numberRandom)) {
+          testShip.push(numberRandom)
+          exclusionBoard.push(numberRandom)
         } else {
-          testShip.push(a)
-          exclusionBoard.push(a)
+          return this.generateNumber(exclusionBoard)
         }
       } else {
-        const a = (number += 10);
-        if (exclusionBoard.includes(a)) {
-          return console.log('collision');
+        const numberRandom = (number += 10);
+        if (!exclusionBoard.includes(numberRandom)) {
+          testShip.push(numberRandom)
+          exclusionBoard.push(numberRandom)
         } else {
-          testShip.push(a)
-          exclusionBoard.push(a)
-
+          return this.generateNumber(exclusionBoard)
         }
       }
     }
-    this.location = testShip
-    console.log(this.location);
+    return this.location = testShip
 
   }
 
@@ -84,9 +83,12 @@ class Ship {
 
 
 const boards = [...document.querySelectorAll('p')]
-// const ship1 = new Ship(4)
-// ship1.generateNumber()
-// const ship2 = new Ship(4)
-// ship2.generateNumber()
-// const ship3 = new Ship(4)
-// ship3.generateNumber()
+const ship1 = new Ship(4)
+ship1.generateNumber(exclusionBoard)
+const ship2 = new Ship(4)
+ship2.generateNumber(exclusionBoard)
+const ship3 = new Ship(4)
+ship3.generateNumber(exclusionBoard)
+console.log(ship3.location);
+console.log(ship2.location);
+console.log(ship1.location);
