@@ -58,9 +58,10 @@ class Ship {
 
   }
 
-  displayShip(boards) {
+  displayShip(boards, color) {
+    const shipColor = color
     for (const el in this.location) {
-      boards[this.location[el]].style.backgroundColor = 'red';
+      boards[this.location[el]].style.backgroundColor = shipColor;
     }
   }
   getHurt(shoot) {
@@ -83,12 +84,29 @@ class Ship {
 
 
 const boards = [...document.querySelectorAll('p')]
-const ship1 = new Ship(4)
-ship1.generateNumber(exclusionBoard)
-const ship2 = new Ship(4)
-ship2.generateNumber(exclusionBoard)
-const ship3 = new Ship(4)
-ship3.generateNumber(exclusionBoard)
-console.log(ship3.location);
-console.log(ship2.location);
-console.log(ship1.location);
+
+// const ship1 = new Ship(4)
+// ship1.generateNumber(exclusionBoard)
+// ship1.displayShip(boards, 'black')
+
+// const ship2 = new Ship(4)
+// ship2.generateNumber(exclusionBoard)
+// ship2.displayShip(boards, 'orange')
+
+// const ship3 = new Ship(4)
+// ship3.generateNumber(exclusionBoard)
+// ship3.displayShip(boards, 'purple')
+
+// const ship4 = new Ship(4)
+// ship4.generateNumber(exclusionBoard)
+// ship4.displayShip(boards, 'green')
+
+// const ship5 = new Ship(4)
+// ship5.generateNumber(exclusionBoard)
+// ship5.displayShip(boards, 'red')
+
+// console.log(ship5.location);
+// console.log(ship4.location);
+// console.log(ship3.location);
+// console.log(ship2.location);
+// console.log(ship1.location);
