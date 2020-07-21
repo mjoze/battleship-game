@@ -19,6 +19,7 @@ class Ship {
   constructor(length) {
     this.location = []
     this.length = length
+    this.hits = []
   }
   generateNumber(exclusionBoard) {
     const direction = Math.round(Math.random());
@@ -64,19 +65,21 @@ class Ship {
       boards[this.location[el]].style.backgroundColor = shipColor;
     }
   }
-  getHurt(shoot) {
-    for (const el of this.location) {
-      if (el === shoot) {
-        this.hits += 1
-        console.log("hit");
-      } else {
-        console.log("miss");
+  getHurt(shoot, boards) {
+    if (this.location === this.hits) {
+      console.log("sunken ship");
+      return
+    } else {
+      for (const el of this.location) {
+        if (el === shoot) {
+          this.hits.push(el)
+          boards[el].style.backgroundColor = 'gray';
+          boards[el].textContent = 'X';
+          console.log("hit");
+        } else {
+          console.log("miss");
+        }
       }
-    }
-  }
-  isSunk() {
-    if (this.hits === this.length) {
-      console.log("ship is sunk");
     }
   }
 }
@@ -85,28 +88,32 @@ class Ship {
 
 const boards = [...document.querySelectorAll('p')]
 
-// const ship1 = new Ship(4)
-// ship1.generateNumber(exclusionBoard)
-// ship1.displayShip(boards, 'black')
+const ship1 = new Ship(4)
+ship1.generateNumber(exclusionBoard)
+ship1.displayShip(boards, 'black')
 
-// const ship2 = new Ship(4)
-// ship2.generateNumber(exclusionBoard)
-// ship2.displayShip(boards, 'orange')
+const ship2 = new Ship(4)
+ship2.generateNumber(exclusionBoard)
+ship2.displayShip(boards, 'orange')
 
-// const ship3 = new Ship(4)
-// ship3.generateNumber(exclusionBoard)
-// ship3.displayShip(boards, 'purple')
+const ship3 = new Ship(4)
+ship3.generateNumber(exclusionBoard)
+ship3.displayShip(boards, 'purple')
 
-// const ship4 = new Ship(4)
-// ship4.generateNumber(exclusionBoard)
-// ship4.displayShip(boards, 'green')
+const ship4 = new Ship(4)
+ship4.generateNumber(exclusionBoard)
+ship4.displayShip(boards, 'green')
 
-// const ship5 = new Ship(4)
-// ship5.generateNumber(exclusionBoard)
-// ship5.displayShip(boards, 'red')
+const ship5 = new Ship(4)
+ship5.generateNumber(exclusionBoard)
+ship5.displayShip(boards, 'red')
+ship5.getHurt(20, boards)
+ship5.getHurt(30, boards)
 
-// console.log(ship5.location);
-// console.log(ship4.location);
-// console.log(ship3.location);
-// console.log(ship2.location);
-// console.log(ship1.location);
+
+console.log(ship5.location);
+console.log(ship5);
+console.log(ship4.location);
+console.log(ship3.location);
+console.log(ship2.location);
+console.log(ship1.location);
