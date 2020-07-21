@@ -16,10 +16,11 @@ class Game {
 
 
 class Ship {
-  constructor(length) {
+  constructor(length, player) {
     this.location = []
-    this.length = length
     this.hits = []
+    this.length = length
+    this.player = player
   }
   generateNumber(exclusionBoard) {
     const direction = Math.round(Math.random());
@@ -62,6 +63,12 @@ class Ship {
   displayShip(boards, color) {
     const shipColor = color
     for (const el in this.location) {
+      if (this.player === 'player') {
+        boards[this.location[el]].textContent = "P";
+      } else if (this.player === 'computer') {
+        boards[this.location[el]].textContent = "C";
+
+      }
       boards[this.location[el]].style.backgroundColor = shipColor;
     }
   }
@@ -88,25 +95,25 @@ class Ship {
 
 const boards = [...document.querySelectorAll('p')]
 
-const ship1 = new Ship(4)
+const ship1 = new Ship(4, 'player')
 ship1.generateNumber(exclusionBoard)
-ship1.displayShip(boards, 'black')
+ship1.displayShip(boards, 'red')
 
-const ship2 = new Ship(4)
+const ship2 = new Ship(4, 'player')
 ship2.generateNumber(exclusionBoard)
-ship2.displayShip(boards, 'orange')
+ship2.displayShip(boards, 'red')
 
-const ship3 = new Ship(4)
+const ship3 = new Ship(4, 'player')
 ship3.generateNumber(exclusionBoard)
-ship3.displayShip(boards, 'purple')
+ship3.displayShip(boards, 'red')
 
-const ship4 = new Ship(4)
+const ship4 = new Ship(4, 'computer')
 ship4.generateNumber(exclusionBoard)
 ship4.displayShip(boards, 'green')
 
-const ship5 = new Ship(4)
+const ship5 = new Ship(4, 'computer')
 ship5.generateNumber(exclusionBoard)
-ship5.displayShip(boards, 'red')
+ship5.displayShip(boards, 'green')
 ship5.getHurt(20, boards)
 ship5.getHurt(30, boards)
 
